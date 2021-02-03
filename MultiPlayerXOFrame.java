@@ -68,6 +68,7 @@ public class MultiPlayerXOFrame extends JFrame {
 	
 	public char checkWinner() {
 		
+		char winner_char;
 		for(int i=1; i<=7; i+=3) 
 		{
 			if(gridMap.get(i).equals(gridMap.get(i+1)) && gridMap.get(i).equals(gridMap.get(i+2)) && gridMap.get(i+1).equals(gridMap.get(i+2)))
@@ -75,8 +76,8 @@ public class MultiPlayerXOFrame extends JFrame {
 				if(!gridMap.get(i).equals("unchecked"))
 				{
 					String[] splitter = gridMap.get(i).split(" ");
-					if(splitter[1].equals("X")) { return 'X'; }
-					if(splitter[1].equals("O")) { return 'O'; }
+					winner_char = splitter[1].equals("X")?'X':'O';
+					return winner_char;
 				}
 			}
 		}
@@ -88,8 +89,8 @@ public class MultiPlayerXOFrame extends JFrame {
 				if(!gridMap.get(i).equals("unchecked"))
 				{
 					String[] splitter = gridMap.get(i).split(" ");
-					if(splitter[1].equals("X")) { return 'X'; }
-					if(splitter[1].equals("O")) { return 'O'; }
+					winner_char = splitter[1].equals("X")?'X':'O';
+					return winner_char;
 				}
 			}
 		}
@@ -99,8 +100,8 @@ public class MultiPlayerXOFrame extends JFrame {
 			if(!gridMap.get(1).equals("unchecked"))
 			{
 				String[] splitter = gridMap.get(1).split(" ");
-				if(splitter[1].equals("X")) { return 'X'; }
-				if(splitter[1].equals("O")) { return 'O'; }
+				winner_char = splitter[1].equals("X")?'X':'O';
+				return winner_char;
 			}
 		}	
 		
@@ -109,22 +110,13 @@ public class MultiPlayerXOFrame extends JFrame {
 			if(!gridMap.get(3).equals("unchecked"))
 			{
 				String[] splitter = gridMap.get(3).split(" ");
-				if(splitter[1].equals("X")) { return 'X'; }
-				if(splitter[1].equals("O")) { return 'O'; }
+				winner_char = splitter[1].equals("X")?'X':'O';
+				return winner_char;
 			}
 		}	
 		
-		if(  !gridMap.get(1).equals("unchecked")  &&
-			 !gridMap.get(2).equals("unchecked")  &&
-			 !gridMap.get(3).equals("unchecked")  &&
-			 !gridMap.get(4).equals("unchecked")  &&
-			 !gridMap.get(5).equals("unchecked")  &&
-			 !gridMap.get(6).equals("unchecked")  &&
-			 !gridMap.get(7).equals("unchecked")  &&
-			 !gridMap.get(8).equals("unchecked")  &&
-			 !gridMap.get(9).equals("unchecked")  )
-			
-		{    turnField.setText("Tie");            };
+		if(!gridMap.get(1).equals("unchecked")  &&!gridMap.get(2).equals("unchecked")  &&!gridMap.get(3).equals("unchecked")  &&!gridMap.get(4).equals("unchecked")  &&!gridMap.get(5).equals("unchecked")  &&!gridMap.get(6).equals("unchecked")  &&!gridMap.get(7).equals("unchecked")  &&!gridMap.get(8).equals("unchecked")  &&!gridMap.get(9).equals("unchecked")  )
+			turnField.setText("Tie");
 		
 		return 'N';
 	}
@@ -138,15 +130,21 @@ public class MultiPlayerXOFrame extends JFrame {
 				gridMap.replace(i, "checked " + checkWinner());
 			}
 			
-			if(Character.compare(checkWinner(), 'X') == 0) { turnField.setText("Winner is " + playerX); }
-			if(Character.compare(checkWinner(), 'O') == 0) { turnField.setText("Winner is " + playerO); }
+			if(Character.compare(checkWinner(), 'X') == 0) {
+				turnField.setText("Winner is " + playerX);
+				} else {
+					 turnField.setText("Winner is " + playerO); 
+				}
 		}
 	}
 	
 	public void updateScore(String playerX, String playerO) {
 		
-		if(Character.compare(checkWinner(), 'X') == 0)  { scoreX++; }
-		if(Character.compare(checkWinner(), 'O') == 0)  { scoreO++; }
+		if(Character.compare(checkWinner(), 'X') == 0)  {
+			scoreX++; 
+		} else {
+			scoreO++;
+		}
 		scoreArea.setText(playerX + " : " + scoreX + "\n" + playerO + " : " + scoreO);
 	}
 	
